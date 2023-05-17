@@ -6,7 +6,7 @@ namespace LaMiaPizzeriaNuova.Models
 {
     public class PizzaModel
     {
-        int Id { get; set; }
+        public int Id { get; set; }
         [MaxLength(40)]
         public string Name { get; set; }
         [Column(TypeName = "text")]
