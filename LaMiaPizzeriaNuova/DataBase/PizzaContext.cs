@@ -4,7 +4,7 @@ namespace LaMiaPizzeriaNuova.DataBase
 {
     public class PizzaContext : DbContext
     {
-        public dbSet<PizzaModel> Pizze {get; set;}
+        public DbSet<PizzaModel> Pizze {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
