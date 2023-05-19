@@ -1,8 +1,8 @@
 ﻿@model PizzaModel
 
 <div class="container">
-    <h2 class="mb-3">Suggeriscici una pizza!</h2>
-    <form asp-controller="Pizza" asp-action="CreatePizza" method="post">
+    <h2 class="mb-3">Modifica una pizza.</h2>
+    <form asp-controller="Pizza" asp-action="ModifyPizza" asp-route-id="@Model.Id" method="post">
         @Html.AntiForgeryToken()
         <div class="mb-3">
             <label asp-for="Name" class="form-label">Nome</label>

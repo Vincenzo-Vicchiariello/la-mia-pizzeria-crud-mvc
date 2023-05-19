@@ -18,18 +18,16 @@
 <body>
  <header>
    @Html.Partial("_Header")
-    </header>
-    <main>
+</header>
+<main>
     <div>
-        @RenderBody()
+     @RenderBody()
 
-        </div>
-    </main>
+    </div>
+</main>
 
     <footer class="pt-5">
-        <div class="py-4 text-white bg_dark_red text-center">
-            <small>Copyright &copy; Your Website 2021</small>
-        </div>
+    @Html.Partial("_Footer")   
     </footer>
 
 
