@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using LaMiaPizzeriaNuova.Models;
+﻿using LaMiaPizzeriaNuova.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
 namespace LaMiaPizzeriaNuova.DataBase
 {
-    public class PizzaContext : DbContext
+    public class PizzaContext : IdentityDbContext<IdentityUser>
     {
-        public DbSet<PizzaModel> Pizze {get; set;}
+        public DbSet<PizzaModel> Pizze { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

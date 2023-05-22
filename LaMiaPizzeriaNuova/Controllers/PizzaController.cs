@@ -1,11 +1,13 @@
 ﻿using LaMiaPizzeriaNuova.DataBase;
 using LaMiaPizzeriaNuova.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LaMiaPizzeriaNuova.Controllers
 {
     public class PizzaController : Controller
     {
+
         public IActionResult Index()
         {
             using (PizzaContext db = new PizzaContext())
@@ -15,11 +17,13 @@ namespace LaMiaPizzeriaNuova.Controllers
             }
         }
 
+        [Authorize(Roles = "ADMIN")]
 
         public IActionResult CreatePizza()
         {
             return View();
         }
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreatePizza(PizzaModel data)
@@ -41,6 +45,7 @@ namespace LaMiaPizzeriaNuova.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult ModifyPizza(int Id)
         {
@@ -54,7 +59,7 @@ namespace LaMiaPizzeriaNuova.Controllers
             }
             return NotFound("Questa pizza non esiste..");
         }
-
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
         public IActionResult ModifyPizza(int Id, PizzaModel ModifiedPizza)
@@ -85,7 +90,7 @@ namespace LaMiaPizzeriaNuova.Controllers
 
 
         }
-
+        [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
         public ActionResult DestroyPizza(int Id)
