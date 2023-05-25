@@ -31,9 +31,9 @@
                                 <td>
                                     @pizza.Price
                                 </td>
-                                <td>
+                                
                                 @if (User.IsInRole("ADMIN"))
-                                {
+                                {<td>
                                     <div class="col-12 d-flex justify-content-center">
                                         <a href="@Url.Action("ModifyPizza", "Pizza", new{id=pizza.Id})" class="btn btn-success mt-3" style="font-family: 'Poltawski Nowy', serif;">Modifica la pizza</a>
                                     </div>
@@ -42,8 +42,9 @@
                                         <div class="col-12 d-flex justify-content-center">
                                             <button class="btn btn-danger mt-3" style="font-family: 'Poltawski Nowy', serif;">Elimina la pizza</button>
                                         </div>
-                                    </form>}
+                                    </form>
                                 </td>
+                                }
                             </tr>
                         }
                         

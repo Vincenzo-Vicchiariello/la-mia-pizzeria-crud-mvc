@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LaMiaPizzeriaNuova.Controllers
 {
+
+
+
+
     public class PizzaController : Controller
     {
 
@@ -33,8 +37,13 @@ namespace LaMiaPizzeriaNuova.Controllers
                 return View("CreatePizza", data);
             }
             using (PizzaContext context = new PizzaContext())
+            using (PizzaCategory context = new PizzaCategory())
             {
                 PizzaModel pizzaToCreate = new PizzaModel();
+                PizzaCategoryForm model = new PizzaCategoryForm();
+                List<PizzaCategory> pizzacategories = context.pizzaCategories.ToList();
+                model.pizzaToCreate = new PizzaModel();
+                model.pizzaCategories = pizzacategories;
                 pizzaToCreate.Name = data.Name;
                 pizzaToCreate.Description = data.Description;
                 pizzaToCreate.ImgSource = data.ImgSource;
