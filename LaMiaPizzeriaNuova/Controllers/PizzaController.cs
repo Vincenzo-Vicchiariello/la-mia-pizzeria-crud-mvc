@@ -50,7 +50,7 @@ namespace LaMiaPizzeriaNuova.Controllers
 
         [Authorize(Roles = "ADMIN")]
         [HttpGet]
-        public IActionResult ModifyPizza(PizzaCategoryForm id)
+        public IActionResult ModifyPizza(int Id)
         {
             using (PizzaContext ctx = new PizzaContext())
             {
@@ -61,7 +61,7 @@ namespace LaMiaPizzeriaNuova.Controllers
                     PizzaCategoryForm model = new PizzaCategoryForm(pizzacategories);
                     model.Pizza = pizzaToModify;
                     model.PizzaCategories = pizzacategories;
-                    return View(pizzaToModify);
+                    return View(model);
                 }
             }
             return NotFound("Questa pizza non esiste..");
@@ -69,7 +69,7 @@ namespace LaMiaPizzeriaNuova.Controllers
         [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryTokenAttribute]
-        public IActionResult ModifyPizza(int Id, PizzaModel ModifiedPizza)
+        public IActionResult ModifyPizza(int Id, PizzaCategoryForm data)
         {
 
             if (ModelState.IsValid)
@@ -79,11 +79,11 @@ namespace LaMiaPizzeriaNuova.Controllers
                     PizzaModel? pizzaToModify = context.Pizze.Where(pizza => pizza.Id == Id).FirstOrDefault();
                     if (pizzaToModify != null)
                     {
-
-                        pizzaToModify.Name = ModifiedPizza.Name;
-                        pizzaToModify.Description = ModifiedPizza.Description;
-                        pizzaToModify.ImgSource = ModifiedPizza.ImgSource;
-                        pizzaToModify.Price = ModifiedPizza.Price;
+                        pizzaToModify.Name = data.Pizza.Name;
+                        pizzaToModify.Description = data.Pizza.Description;
+                        pizzaToModify.ImgSource = data.Pizza.ImgSource;
+                        pizzaToModify.Price = data.Pizza.Price;
+                        pizzaToModify.PizzaCategoryId = data.Pizza.PizzaCategoryId;
                         context.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -94,7 +94,7 @@ namespace LaMiaPizzeriaNuova.Controllers
                 }
 
             }
-            else return View(ModifiedPizza);
+            else return View(data.Pizza);
 
 
         }
