@@ -3,6 +3,7 @@ using LaMiaPizzeriaNuova.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace LaMiaPizzeriaNuova.Controllers
 {
 
@@ -29,16 +30,14 @@ namespace LaMiaPizzeriaNuova.Controllers
             using (PizzaContext context = new PizzaContext())
             {
                 List<PizzaCategory> pizzacategories = context.pizzaCategories.ToList();
-                PizzaCategoryForm model = new PizzaCategoryForm();
-                model.Pizza = new PizzaModel();
-                model.pizzaCategories = pizzacategories;
+                PizzaCategoryForm model = new PizzaCategoryForm(pizzacategories);
                 return View("CreatePizza", model);
             }
         }
         [Authorize(Roles = "ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreatePizza(PizzaModel data)
+        public IActionResult CreatePizza(PizzaCategoryForm data)
         {
             if (!ModelState.IsValid)
             {
@@ -46,18 +45,13 @@ namespace LaMiaPizzeriaNuova.Controllers
             }
             using (PizzaContext context = new PizzaContext())
             {
-                PizzaModel pizzaToCreate = new PizzaModel();
-                pizzaToCreate.Name = data.Name;
-                pizzaToCreate.Description = data.Description;
-                pizzaToCreate.ImgSource = data.ImgSource;
-                pizzaToCreate.Price = data.Price;
-                pizzaToCreate.PizzaCategoryId = data.PizzaCategoryId;
-                context.Pizze.Add(pizzaToCreate);
+                context.Pizze.Add(data.Pizza);
                 context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
         }
+
         [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult ModifyPizza(int Id)

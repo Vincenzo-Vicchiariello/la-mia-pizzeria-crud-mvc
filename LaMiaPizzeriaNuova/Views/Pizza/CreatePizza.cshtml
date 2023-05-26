@@ -1,4 +1,6 @@
-﻿@model PizzaCategoryForm
+﻿@using LaMiaPizzeriaNuova.Models
+@model PizzaCategoryForm
+
 
 <div class="container">
     <h2 class="mb-3">Suggeriscici una pizza!</h2>
@@ -28,9 +30,9 @@
             <p>Categoria:</p>
             <select asp-for="Pizza.PizzaCategoryId" rows="10" class="d-block w-100">
                 <option value=""></option>
-                @foreach (PizzaCategory category in Model.pizzaCategories)
+                @foreach (PizzaCategory category in Model.PizzaCategories ?? new List<PizzaCategory>())
                 {
-                    @if (Model.Pizza.PizzaCategoryId == category.Id)
+                    @if (Model.Pizza.PizzaCategoryId == category.Id )
                     {
                         <option value="@category.Id" selected>@category.Name</option>
                     }
@@ -42,7 +44,5 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Salva</button>
-        <div class="mb-3">
-        </div>
     </form>
 </div>

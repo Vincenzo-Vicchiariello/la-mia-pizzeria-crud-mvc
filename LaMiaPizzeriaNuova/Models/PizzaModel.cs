@@ -23,7 +23,7 @@ namespace LaMiaPizzeriaNuova.Models
         [MoreThanZero(ErrorMessage = "Il prezzo deve essere maggiore di 0!")]
         public float Price { get; set; }
         public int? PizzaCategoryId { get; set; }
-        public PizzaCategory PizzaCategory { get; set; }
+        public PizzaCategory? PizzaCategory { get; set; }
 
         public PizzaModel()
         {

@@ -11,10 +11,8 @@
         public PizzaCategory(string name)
         {
             Name = name;
+            Pizze = new List<PizzaModel>();
         }
 
-        public PizzaCategory()
-        {
-        }
     }
 }
