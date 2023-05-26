@@ -6,10 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LaMiaPizzeriaNuova.Controllers
 {
-
-
-
-
     public class PizzaController : Controller
     {
 
@@ -54,13 +50,17 @@ namespace LaMiaPizzeriaNuova.Controllers
 
         [Authorize(Roles = "ADMIN")]
         [HttpGet]
-        public IActionResult ModifyPizza(int Id)
+        public IActionResult ModifyPizza(PizzaCategoryForm id)
         {
             using (PizzaContext ctx = new PizzaContext())
             {
                 PizzaModel? pizzaToModify = ctx.Pizze.Where(pizza => pizza.Id == Id).FirstOrDefault();
                 if (pizzaToModify != null)
                 {
+                    List<PizzaCategory> pizzacategories = ctx.pizzaCategories.ToList();
+                    PizzaCategoryForm model = new PizzaCategoryForm(pizzacategories);
+                    model.Pizza = pizzaToModify;
+                    model.PizzaCategories = pizzacategories;
                     return View(pizzaToModify);
                 }
             }
@@ -79,6 +79,7 @@ namespace LaMiaPizzeriaNuova.Controllers
                     PizzaModel? pizzaToModify = context.Pizze.Where(pizza => pizza.Id == Id).FirstOrDefault();
                     if (pizzaToModify != null)
                     {
+
                         pizzaToModify.Name = ModifiedPizza.Name;
                         pizzaToModify.Description = ModifiedPizza.Description;
                         pizzaToModify.ImgSource = ModifiedPizza.ImgSource;
